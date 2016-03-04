@@ -12,6 +12,18 @@ class MoviesController < ApplicationController
 
   def index
     @movies = Movie.all
+    if params.size > 2 then
+      if params[:sort] == 'title' then
+        @movies = Movie.order('title')
+        @mark = 'title'
+      elsif params[:sort] == 'release_date' then
+        @movies = Movie.order('release_date')
+        @mark = 'release_date'
+      end
+    else
+      @movies = Movie.all
+      @mark = 'none'
+    end
   end
 
   def new
